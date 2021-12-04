@@ -1,0 +1,147 @@
+//Polynomial.cpp
+//Deangelo Aguilar
+
+#inlcude"Polynomial.h"
+#include"Linked.h"
+#inlcude<iostream>
+include<string>
+include<sstream>
+using namespace std;
+
+namespace Polynomial
+{
+	Polynomial::Polynomial(void)
+	{
+		degree = 0;
+		coefficients.push(0);
+	}
+
+	Polynomial::Polynomial( const Polynomial &source)
+	{
+	if (this == &source) return *this
+	//if(degree <source.degree)
+	//{
+		//in HW 2 this was to make the array bigger and to copy
+		//not necessary here becasue list grows larger as added
+		//coefficients.delete(void);
+		coeffiecients.push(source); //copying ??
+
+	//}
+
+	Polynomial::~Polynomial()
+	{
+		coefficients.delete(void)
+		//destructor is to delete what is in list
+	}
+	Polyomial &Polynomial::operator=( const Polynomial &source)
+	{
+		if(this == &source) return *this;
+		if(degree < source.degree)
+		{
+			coefficients.copy(void);// this should return a *Polynomial
+			//this method only makes a copy but i dont know why
+			// if it was an array it is making the size 1 bigger 
+			//than new degree
+			return *this
+		}
+	}
+	// addition method
+		Polynomial operator+(const Polynomial &leftOperand, const Polynomial &rightOperand)
+	{
+		// order operands
+		const Polynomial *smaller;
+		const Polynomial *larger;
+		if ( leftOperand.degree < rightOperand.degree )
+		{
+			smaller = &leftOperand;
+			larger = &rightOperand;
+		}
+		else
+		{
+			smaller = &rightOperand;
+			larger = &leftOperand;
+		}
+
+		// construct a copy of the larger
+		Polynomial sum(*larger);
+
+		// add coefficients from the smaller
+		for ( int sumIndex = 0 ; sumIndex <= smaller->degree ; ++sumIndex )
+			sum.coefficients[sumIndex] += smaller->coefficients[sumIndex];
+
+		sum.normalize();
+		return sum;
+	}
+	// multiplication method 
+
+	Polynomial operator*(const Polynomial &leftOperand, const Polynomial &rightOperand)
+	{
+		Polynomial product;
+
+		// initialize all coeffs to zero
+		for (Node*currentNode = head; currentNode!=nullptr
+		     ; currentNode = currentNode->next)
+			 currentNode->data = 0;
+			 Node *copy = copy(coefficients1.head)
+			
+		// multiply all coeff pairs and add to appropriate degreed coeff in the product
+		for ( Node copy = coefficients1.head;copy !=nullptr ; 
+				; copy->next)
+			for (  Node *currentRight = coefficients2.head; currentRight !=nullptr ; 
+				; currentRight->next )
+				product.coefficients[leftIndex+rightIndex] += leftOperand.coefficients[leftIndex]
+																* rightOperand.coefficients[rightIndex];
+		product.normalize();
+		return product;
+	}
+
+	// an extra space at the end... I'm OK with that...
+	ostream &operator<<(ostream &target, const Polynomial &source)
+	{
+		for ( int outputIndex = source.degree ; outputIndex >= 0 ; --outputIndex )
+			target << source.coefficients[outputIndex] << ' ';
+		return target;
+	}
+
+
+
+	istream &operator>>(istream &source, Polynomial &target)
+	{
+		// get a line from source
+		string sourceLine;
+		getline(source, sourceLine);
+
+		// remember former degree of target
+		int oldTargetDegree = target.degree;
+
+		// reset target degree by counting coefficients in source line
+		istringstream countStream( sourceLine );
+		int coeff;
+		int newTargetDegree;
+		for ( newTargetDegree = -1 ; countStream >> coeff ; ++newTargetDegree );
+
+		// update target degree, reallocating storage if needed
+		if ( newTargetDegree > oldTargetDegree )
+		{
+			delete [] target.coefficients;
+			target.coefficients = new int[newTargetDegree+1];
+		}
+		target.degree = newTargetDegree;
+
+		// load new coefficients by rereading source line
+		istringstream dataStream(sourceLine);
+		for ( int coeffIndex = target.degree ; coeffIndex >= 0 ; --coeffIndex )
+			dataStream >> target.coefficients[coeffIndex];
+
+		return source;
+	}
+
+	// throw out 0 coefficients at highest degree
+	void Polynomial::normalize(void)
+	{
+		while ( coefficients[degree] == 0 && degree > 0  )
+			-- degree;
+	}
+} // namespace
+	}
+}
