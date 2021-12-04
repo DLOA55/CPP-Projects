@@ -1,0 +1,60 @@
+
+//Polynomial.cpp
+//Created by Deangelo Aguilar on 9/11/18
+//Read and add to vector for calculating Polynomials
+#include"Polynomial.h"
+#include<cassert>
+#include<cmath>
+#include <iostream>
+#include <stack>
+using namespace std;
+
+namespace PolynomialSpace 
+{
+
+	Polynomial::Polynomial(void){} //constructor?
+
+	void Polynomial::read(value_type textFile )
+	{
+	cout <<"Enter in the File Name"<<endl;
+	cin >>fileName; 
+	dataFile.open(fileName);
+	if(dataFile.fail())
+	{
+		cout <<"File cannot be found"endl;
+		return (0);
+	}
+	while(!dataFile.fail())&& !dataFile.eof())
+	{
+	double temp;
+	char operator;
+	dataFile >> operator>>endl;
+	cin.get()
+	test.push_back(name);
+	test2.push_back(name);
+	}
+	dataFile.close);
+	}
+	void Polynomial::calculate()
+	{
+	for(vector<value_type>::size_type i=poly1.size()-1 ; i >=0 ;--i)
+	{
+		int index=i;
+		(while index>poly2.size()-1)
+		{
+		index-=1;
+		}
+		(while index<poly2.size()-1)
+		{
+		index+=1;
+		}
+		int ending_poly= poly1[i] operator poly2[index] 
+		stack.push(ending_poly);
+	}	
+	cout << "The new Polynomials Coefficcients are: ";
+	for(stack<value_type>::size_type i=1; i<stack.size(); ++i)
+	{
+		cout << stack.pop();
+	}
+	}
+}
